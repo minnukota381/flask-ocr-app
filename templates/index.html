@@ -62,10 +62,10 @@
         .container {
             display: flex;
             flex-direction: row;
-            justify-content: center;
+            justify-content: space-around; /* Adjust this value based on your preference */
             align-items: flex-start;
             margin-top: 80px;
-            padding: 40px;
+            padding: 20px;
             width: 90%;
             max-width: 1200px;
             background: white;
@@ -75,6 +75,9 @@
         .upload-section, .text-section {
             flex: 1;
             padding: 20px;
+        }
+        .upload-section {
+            margin-right: 20px; /* Adjust margin for spacing */
         }
         h1 {
             margin-bottom: 30px;
@@ -109,70 +112,94 @@
             background-color: #555;
         }
         .text-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex: 1;
+            padding: 20px;
+        }
+        .text-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
         }
         textarea {
             width: 100%;
-            min-height: 200px;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 6px;
+            height: 100%;
+            padding: 15px;
+            border-radius: 8px;
             border: 1px solid #ddd;
-            resize: vertical;
             font-size: 1rem;
-            line-height: 1.6;
+            line-height: 1.5;
+            resize: vertical;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
         }
-        .uploaded-img {
-            margin-top: 20px;
+        textarea:focus {
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .image-preview {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-preview img {
             max-width: 100%;
-            height: auto;
-            border-radius: 6px;
+            max-height: 300px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .error-msg {
-            color: #d9534f;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .success-msg {
-            color: #5cb85c;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .logout-btn {
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <div class="brand">Image to Text Converter</div>
+        <div class="brand">
+            Image to Text Converter
+        </div>
         {% if 'username' in session %}
-            <form action="{{ url_for('logout') }}" method="GET" class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </form>
+        <button class="logout-btn" onclick="location.href='{{ url_for('logout') }}';"><i class="fas fa-sign-out-alt"></i> Logout</button>
         {% endif %}
     </div>
-
     <div class="container">
         <div class="upload-section">
-            <h1>Upload Image</h1>
-            <form action="{{ url_for('index') }}" method="POST" enctype="multipart/form-data">
-                <input type="file" name="file" accept=".jpg, .jpeg, .png">
+            <h1>Upload an Image</h1>
+            <form id="imageForm" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="file" accept="image/*" required>
                 <input type="submit" value="Convert Image to Text">
             </form>
+            <div class="image-preview" id="imagePreview">
+                {% if image_file %}
+                <img src="data:image/jpeg;base64,{{ image_file }}" alt="Uploaded Image">
+                {% endif %}
+            </div>
+        </div>
+        <div class="text-section">
             {% if text %}
-                <div class="text-section">
-                    <h2>Extracted Text</h2>
-                    <textarea readonly>{{ text }}</textarea>
-                    {% if image_file %}
-                        <img src="data:image/jpeg;base64,{{ image_file }}" class="uploaded-img" alt="Uploaded">
-                    {% endif %}
-                </div>
+                <h2>Extracted Text</h2>
+                <textarea readonly>{{ text }}</textarea>
             {% endif %}
         </div>
     </div>
+
+    <script>
+        // JavaScript for image preview
+        const fileInput = document.getElementById('fileInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    imagePreview.innerHTML = '';
+                    imagePreview.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.innerHTML = '';
+            }
+        });
+    </script>
 </body>
 </html>
