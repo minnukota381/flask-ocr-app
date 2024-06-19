@@ -43,8 +43,8 @@ def convert_image_to_text(image_file):
 # Route for home page (login)
 @app.route('/')
 def login():
-    if 'username' in session:
-        return redirect(url_for('index'))
+    # if 'username' in session:
+    #     return redirect(url_for('index'))
     return render_template('login.html')
 
 # Route for login form submission
