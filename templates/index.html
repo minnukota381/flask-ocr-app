@@ -36,14 +36,14 @@
         .navbar .brand {
             font-size: 1.8rem;
             font-weight: 600;
-            margin-right:40px
+            margin-right: 40px;
         }
         .navbar .logout-btn {
             background-color: #fff;
             color: #333;
             border: none;
             padding: 10px 10px;
-            margin-right:20px;
+            margin-right: 20px;
             border-radius: 20px;
             font-size: 1rem;
             cursor: pointer;
@@ -115,82 +115,64 @@
         }
         textarea {
             width: 100%;
-            height: 100%;
-            padding: 15px;
-            border-radius: 8px;
+            min-height: 200px;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
             border: 1px solid #ddd;
-            font-size: 1rem;
-            line-height: 1.5;
             resize: vertical;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s;
+            font-size: 1rem;
+            line-height: 1.6;
         }
-        textarea:focus {
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-        .image-preview {
+        .uploaded-img {
             margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .error-msg {
+            color: #d9534f;
+            margin-bottom: 10px;
             text-align: center;
         }
-        .image-preview img {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .success-msg {
+            color: #5cb85c;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .logout-btn {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <div class="brand">
-            Image to Text Converter
-        </div>
+        <div class="brand">Image to Text Converter</div>
         {% if 'username' in session %}
-        <button class="logout-btn" onclick="location.href='{{ url_for('logout') }}';"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <form action="{{ url_for('logout') }}" method="GET" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </form>
         {% endif %}
     </div>
+
     <div class="container">
         <div class="upload-section">
-            <h1>Upload an Image</h1>
-            <form id="imageForm" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
-                <input type="file" id="fileInput" name="file" accept="image/*" required>
+            <h1>Upload Image</h1>
+            <form action="{{ url_for('index') }}" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" accept=".jpg, .jpeg, .png">
                 <input type="submit" value="Convert Image to Text">
             </form>
-            <div class="image-preview" id="imagePreview">
-                <!-- Image preview will be displayed here -->
-            </div>
-        </div>
-        <div class="text-section">
             {% if text %}
-                <h2 style="text-align: center; margin-bottom: 20px;">Extracted Text</h2>
-                <textarea readonly>{{ text }}</textarea>
+                <div class="text-section">
+                    <h2>Extracted Text</h2>
+                    <textarea readonly>{{ text }}</textarea>
+                    {% if image_file %}
+                        <img src="data:image/jpeg;base64,{{ image_file }}" class="uploaded-img" alt="Uploaded">
+                    {% endif %}
+                </div>
             {% endif %}
         </div>
     </div>
-
-    <script>
-        // JavaScript for image preview
-        const fileInput = document.getElementById('fileInput');
-        const imagePreview = document.getElementById('imagePreview');
-
-        fileInput.addEventListener('change', function() {
-            const file = this.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function(event) {
-                    const img = document.createElement('img');
-                    img.src = event.target.result;
-                    imagePreview.innerHTML = '';
-                    imagePreview.appendChild(img);
-                }
-
-                reader.readAsDataURL(file);
-            } else {
-                imagePreview.innerHTML = '';
-            }
-        });
-    </script>
 </body>
 </html>
