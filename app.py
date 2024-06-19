@@ -8,14 +8,11 @@ import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
 
-# Initialize Flask app
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 
-# Initialize EasyOCR reader
 reader = easyocr.Reader(['en'])
 
 # Function to establish connection to SQLite database
@@ -37,14 +34,11 @@ create_connection()
 
 # Function to upload image and convert to text
 def convert_image_to_text(image_file):
-    try:
-        image = Image.open(io.BytesIO(image_file.read()))
-        image_np = np.array(image)
-        result = reader.readtext(image_np)
-        text = " ".join([res[1] for res in result])
-        return text
-    except Exception as e:
-        return str(e)
+    image = Image.open(io.BytesIO(image_file.read()))
+    image_np = np.array(image)
+    result = reader.readtext(image_np)
+    text = " ".join([res[1] for res in result])
+    return text
 
 # Route for home page (login)
 @app.route('/')

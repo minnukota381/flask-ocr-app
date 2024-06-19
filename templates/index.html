@@ -12,78 +12,50 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f9;
+            padding: 0;
+            background-color: #f0f0f0;
         }
         .container {
-            display: flex;
             background: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            max-width: 1000px;
         }
         .upload-section, .text-section {
+            flex: 1;
             padding: 20px;
-            width: 50%;
-        }
-        .upload-section {
-            background-color: #f7f9fc;
-            border-right: 1px solid #e6e6e6;
         }
         h1 {
             margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
         }
         form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin-bottom: 20px;
         }
         input[type="file"] {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff;
-            cursor: pointer;
-        }
-        input[type="submit"] {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+            margin-bottom: 10px;
         }
         .text-section {
             display: flex;
             flex-direction: column;
-            align-items: center;
-        }
-        .text-section h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
+            justify-content: center;
         }
         textarea {
             width: 100%;
-            height: 300px;
+            height: 100%;
             padding: 10px;
+            border-radius: 8px;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            resize: none;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="upload-section">
-            <h1>Upload an Image to Convert to Text</h1>
+            <h1>Upload an Image</h1>
             <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" accept="image/*" required>
                 <input type="submit" value="Upload">
