@@ -128,6 +128,16 @@
         textarea:focus {
             box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
         }
+        .image-preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .image-preview img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -142,10 +152,13 @@
     <div class="container">
         <div class="upload-section">
             <h1>Upload an Image</h1>
-            <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" accept="image/*" required>
+            <form id="imageForm" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="file" accept="image/*" required>
                 <input type="submit" value="Convert Image to Text">
             </form>
+            <div class="image-preview" id="imagePreview">
+                <!-- Image preview will be displayed here -->
+            </div>
         </div>
         <div class="text-section">
             {% if text %}
@@ -154,5 +167,30 @@
             {% endif %}
         </div>
     </div>
+
+    <script>
+        // JavaScript for image preview
+        const fileInput = document.getElementById('fileInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    imagePreview.innerHTML = '';
+                    imagePreview.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.innerHTML = '';
+            }
+        });
+    </script>
 </body>
 </html>

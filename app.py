@@ -100,19 +100,23 @@ def index():
     if 'username' not in session:
         return redirect(url_for('login'))
 
+    text = None
+    image_file = None
+
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part', 'danger')
             return redirect(request.url)
+
         file = request.files['file']
         if file.filename == '':
             flash('No selected file', 'danger')
             return redirect(request.url)
-        if file:
-            text = convert_image_to_text(file)
-            return render_template('index.html', text=text)
 
-    return render_template('index.html')
+        image_file = file
+        text = convert_image_to_text(file)
+
+    return render_template('index.html', text=text, image_file=image_file)
 
 if __name__ == '__main__':
     app.run(debug=True)
