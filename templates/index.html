@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image to Text Converter</title>
+    <!-- Link to FontAwesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,9 +52,40 @@
             border-radius: 8px;
             border: 1px solid #ddd;
         }
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .navbar .brand {
+            font-size: 1.5rem;
+        }
+        .navbar .logout-btn {
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        .navbar .logout-btn:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <div class="brand">
+            Image to Text Converter
+        </div>
+        {% if 'username' in session %}
+        <button class="logout-btn" onclick="location.href='{{ url_for('logout') }}';"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        {% endif %}
+    </div>
     <div class="container">
         <div class="upload-section">
             <h1>Upload an Image</h1>
