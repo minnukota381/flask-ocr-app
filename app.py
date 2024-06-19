@@ -16,7 +16,6 @@ app.secret_key = os.getenv('SECRET_KEY')
 
 reader = easyocr.Reader(['en'])
 
-# Function to establish connection to SQLite database
 def create_connection():
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
@@ -33,7 +32,6 @@ def create_connection():
 
 create_connection()
 
-# Function to upload image and convert to text using EasyOCR
 def convert_image_to_text(image_file):
     try:
         image = Image.open(image_file)
@@ -45,14 +43,12 @@ def convert_image_to_text(image_file):
         print(f"Error processing image: {e}")
         return None
 
-# Route for home page (login)
 @app.route('/')
 def login():
     # if 'username' in session:
     #     return redirect(url_for('index'))
     return render_template('login.html')
 
-# Route for login form submission
 @app.route('/login', methods=['POST'])
 def login_post():
     username = request.form['username']
@@ -65,13 +61,12 @@ def login_post():
     conn.close()
 
     if user and check_password_hash(user[3], password):
-        session['username'] = user[2]  # store username in session
-        return redirect(url_for('index'))  # redirect to index.html upon successful login
+        session['username'] = user[2]
+        return redirect(url_for('index'))
     else:
         flash('Login Unsuccessful. Please check username and password', 'danger')
         return redirect(url_for('login'))
 
-# Route for registration form
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -93,13 +88,11 @@ def register():
 
     return render_template('register.html')
 
-# Route for logging out
 @app.route('/logout')
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
-# Route for index page (image upload and conversion)
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     if 'username' not in session:
@@ -123,8 +116,7 @@ def index():
             if text is None:
                 flash('Error processing image. Please upload a valid image file.', 'danger')
             else:
-                # Prepare image for displaying on the page
-                file.seek(0)  # Reset file pointer
+                file.seek(0)
                 image_bytes = file.read()
                 image_file_base64 = base64.b64encode(image_bytes).decode('utf-8')
 
