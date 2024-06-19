@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+    <form class="form_main" method="POST" action="{{ url_for('register') }}">
+        <p class="heading">Register</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="inputContainer">
+            <input placeholder="Full Name" name="fullname" class="inputField" type="text" required>
+        </div>
+
+        <div class="inputContainer">
+            <input placeholder="Username" name="username" class="inputField" type="text" required>
+        </div>
+
+        <div class="inputContainer">
+            <input placeholder="Password" name="password" class="inputField" type="password" required>
+        </div>
+
+        <button id="button">Register</button>
+        <div class="signupContainer">
+            <p>Already have an account?</p>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </form>
+</body>
+</html>
