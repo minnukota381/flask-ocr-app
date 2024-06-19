@@ -91,7 +91,7 @@ A web application that allows users to upload an image and convert it to text us
 ## Project Structure
 
 ```bash
-image-to-text-converter/
+flask-ocr-app/
 │
 ├── app.py                 # Main application file
 ├── requirements.txt       # Python dependencies
