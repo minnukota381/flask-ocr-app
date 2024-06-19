@@ -1,10 +1,11 @@
-import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-import easyocr
 from PIL import Image
 import io
-import numpy as np
+import base64
+import os
 import sqlite3
+import numpy as np
+import easyocr
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 
@@ -32,19 +33,23 @@ def create_connection():
 
 create_connection()
 
-# Function to upload image and convert to text
+# Function to upload image and convert to text using EasyOCR
 def convert_image_to_text(image_file):
-    image = Image.open(io.BytesIO(image_file.read()))
-    image_np = np.array(image)
-    result = reader.readtext(image_np)
-    text = " ".join([res[1] for res in result])
-    return text
+    try:
+        image = Image.open(image_file)
+        image_np = np.array(image)
+        result = reader.readtext(image_np)
+        text = " ".join([res[1] for res in result])
+        return text
+    except Exception as e:
+        print(f"Error processing image: {e}")
+        return None
 
 # Route for home page (login)
 @app.route('/')
 def login():
-    # if 'username' in session:
-    #     return redirect(url_for('index'))
+    if 'username' in session:
+        return redirect(url_for('index'))
     return render_template('login.html')
 
 # Route for login form submission
@@ -101,7 +106,7 @@ def index():
         return redirect(url_for('login'))
 
     text = None
-    image_file = None
+    image_file_base64 = None
 
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -113,10 +118,20 @@ def index():
             flash('No selected file', 'danger')
             return redirect(request.url)
 
-        image_file = file
-        text = convert_image_to_text(file)
+        try:
+            text = convert_image_to_text(file)
+            if text is None:
+                flash('Error processing image. Please upload a valid image file.', 'danger')
+            else:
+                # Prepare image for displaying on the page
+                file.seek(0)  # Reset file pointer
+                image_bytes = file.read()
+                image_file_base64 = base64.b64encode(image_bytes).decode('utf-8')
 
-    return render_template('index.html', text=text, image_file=image_file)
+        except Exception as e:
+            flash(f'Error processing image: {str(e)}', 'danger')
+
+    return render_template('index.html', text=text, image_file=image_file_base64)
 
 if __name__ == '__main__':
     app.run(debug=True)
