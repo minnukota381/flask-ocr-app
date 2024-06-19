@@ -36,14 +36,14 @@ A web application that allows users to upload an image and convert it to text us
 
    ```sh
    git clone https://github.com/minnukota381/flask-ocr-app.git
-   cd image-to-text-converter
+   cd flask-ocr-app
    ```
 
 2. **Create a virtual environment**:
 
    ```sh
    python3 -m venv venv
-   source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
+   source venv\Scripts\activate
    ```
 
 3. **Install the required dependencies**:
