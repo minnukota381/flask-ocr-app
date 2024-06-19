@@ -17,7 +17,7 @@ body {
     background-color: rgb(255, 255, 255);
     padding: 30px 30px 30px 30px;
     border-radius: 30px;
-    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.062);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.442);
     margin-top: 50px;
 }
 
@@ -46,7 +46,7 @@ body {
     height: 40px;
     background-color: transparent;
     border: none;
-    border-bottom: 2px solid rgb(173, 173, 173);
+    border: 2px solid rgb(111, 0, 255);
     border-radius: 30px;
     margin: 10px 0;
     color: black;
@@ -69,13 +69,13 @@ body {
 
 #button {
     position: relative;
-    width: 100%;
+    width: 50%;
     border: 2px solid #8000ff;
     background-color: #8000ff;
     height: 40px;
     color: white;
     font-size: .8em;
-    font-weight: 500;
+    font-weight: 800;
     letter-spacing: 1px;
     border-radius: 30px;
     margin: 10px;
