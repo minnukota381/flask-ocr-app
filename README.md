@@ -42,8 +42,8 @@ A web application that allows users to upload an image and convert it to text us
 2. **Create a virtual environment**:
 
    ```sh
-   python3 -m venv venv
-   source venv\Scripts\activate
+   python -m venv venv
+   venv\Scripts\activate
    ```
 
 3. **Install the required dependencies**:
