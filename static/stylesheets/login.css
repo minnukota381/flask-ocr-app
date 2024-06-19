@@ -74,7 +74,7 @@ body {
     background-color: #8000ff;
     height: 40px;
     color: white;
-    font-size: .8em;
+    font-size: 1em;
     font-weight: 800;
     letter-spacing: 1px;
     border-radius: 30px;
@@ -118,7 +118,7 @@ body {
 }
 
 .signupContainer a {
-    font-size: .7em;
+    font-size: 1em;
     font-weight: 500;
     background-color: #2e2e2e;
     color: white;
