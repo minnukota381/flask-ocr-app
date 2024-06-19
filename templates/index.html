@@ -8,144 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Link to Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-        }
-        .navbar {
-            width: 100%;
-            background-color: #333;
-            color: white;
-            padding: 15px 30px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-        }
-        .navbar .brand {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-right: 40px;
-        }
-        .navbar .logout-btn {
-            background-color: #fff;
-            color: #333;
-            border: none;
-            padding: 10px 10px;
-            margin-right: 20px;
-            border-radius: 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .navbar .logout-btn:hover {
-            background-color: #ddd;
-            color: #555;
-        }
-        .navbar .logout-btn i {
-            margin-right: 8px;
-        }
-        .container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around; /* Adjust this value based on your preference */
-            align-items: flex-start;
-            margin-top: 80px;
-            padding: 20px;
-            width: 90%;
-            max-width: 1200px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-        .upload-section, .text-section {
-            flex: 1;
-            padding: 20px;
-        }
-        .upload-section {
-            margin-right: 20px; /* Adjust margin for spacing */
-        }
-        h1 {
-            margin-bottom: 30px;
-            text-align: center;
-            color: #333;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        input[type="file"] {
-            margin-bottom: 10px;
-            padding: 10px 15px;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            font-size: 1rem;
-        }
-        input[type="submit"] {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        input[type="submit"]:hover {
-            background-color: #555;
-        }
-        .text-section {
-            flex: 1;
-            padding: 20px;
-        }
-        .text-section h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        textarea {
-            width: 100%;
-            height: 100%;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-size: 1rem;
-            line-height: 1.5;
-            resize: vertical;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s;
-        }
-        textarea:focus {
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-        .image-preview {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .image-preview img {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
     <div class="navbar">
@@ -165,7 +29,7 @@
             </form>
             <div class="image-preview" id="imagePreview">
                 {% if image_file %}
-                <img src="data:image/jpeg;base64,{{ image_file }}" alt="Uploaded Image">
+                <img src="data:image/jpeg;base64,{{ image_file }}" alt="Uploaded">
                 {% endif %}
             </div>
         </div>
@@ -177,29 +41,7 @@
         </div>
     </div>
 
-    <script>
-        // JavaScript for image preview
-        const fileInput = document.getElementById('fileInput');
-        const imagePreview = document.getElementById('imagePreview');
-
-        fileInput.addEventListener('change', function() {
-            const file = this.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function(event) {
-                    const img = document.createElement('img');
-                    img.src = event.target.result;
-                    imagePreview.innerHTML = '';
-                    imagePreview.appendChild(img);
-                }
-
-                reader.readAsDataURL(file);
-            } else {
-                imagePreview.innerHTML = '';
-            }
-        });
-    </script>
+    <!-- Link to external JavaScript file -->
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>
