@@ -22,10 +22,10 @@
     </div>
     <div class="container">
         <div class="upload-section">
-            <h1>Upload an Image</h1>
+            <h1>Upload</h1>
             <form id="imageForm" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
                 <input type="file" id="fileInput" name="file" accept="image/*" required>
-                <input type="submit" value="Convert Image to Text">
+                <input type="submit" value="Convert">
             </form>
             <div class="image-preview" id="imagePreview">
                 {% if image_file %}
