@@ -10,6 +10,10 @@
 # It includes user authentication, image processing, and text extraction        #
 # features. The script uses SQLite for user data storage and ensures secure     #
 # password handling with hashing.                                               #
+# SECRET_KEY=d6b1f318fd76050b8f8eae6161e82af4                                   #
+# FLASK_ENV=development                                                         #
+# FLASK_DEBUG=1                                                                 #
+# PORT=10000                                                                    #
 #################################################################################
 """
 

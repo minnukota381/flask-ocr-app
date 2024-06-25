@@ -20,7 +20,4 @@ fileInput.addEventListener('change', function() {
     }
 });
 
-// SECRET_KEY=d6b1f318fd76050b8f8eae6161e82af4
-// FLASK_ENV=development
-// FLASK_DEBUG=1
-// PORT=10000
+
