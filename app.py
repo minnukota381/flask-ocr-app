@@ -1,22 +1,11 @@
 """
-#################################################################################
-#                              Flask OCR Web Application                        #
-#-------------------------------------------------------------------------------#
-# Author: minnukota381                                                          #
-# Date: 2024-06-26                                                              #
-# Description:                                                                  #
-# This script is a Flask web application that allows users to register, log in, #
-# upload images, and extract text from those images using the EasyOCR library.  #
-# It includes user authentication, image processing, and text extraction        #
-# features. The script uses SQLite for user data storage and ensures secure     #
-# password handling with hashing.                                               #
+#################################################################################                                               #
 # SECRET_KEY=d6b1f318fd76050b8f8eae6161e82af4                                   #
 # FLASK_ENV=development                                                         #
 # FLASK_DEBUG=1                                                                 #
 # PORT=10000                                                                    #
 #################################################################################
 """
-
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from PIL import Image
 import io
