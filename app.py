@@ -1,11 +1,3 @@
-"""
-#################################################################################                                               #
-# SECRET_KEY=d6b1f318fd76050b8f8eae6161e82af4                                   #
-# FLASK_ENV=development                                                         #
-# FLASK_DEBUG=1                                                                 #
-# PORT=10000                                                                    #
-#################################################################################
-"""
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from PIL import Image
 import io
